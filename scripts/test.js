@@ -2,7 +2,12 @@ const { deepEqual } = require("assert");
 const { resolve, join } = require("path");
 const { readdirSync } = require("fs");
 
+const { plot } = require("./plot");
+
+
+const PLOT_CLUSTERS = process.argv.slice(2).includes("--plot");
 const TEST_PATH = resolve("./test/");
+const PLOT_PATH = resolve("./test/plot/");
 
 
 process.on("exit", code => {
@@ -37,8 +42,16 @@ global.test = function(actual, expected) {
     i++;
 
     const path = ((new Error()).stack || "").split(/\n/g)[2];
-        
+    const filename = (path.match(/[^/]+\.test\.js/) || []).pop();
+    
     try {
+        try {
+            PLOT_CLUSTERS && plot(PLOT_PATH, filename || "__", actual);
+        } catch(err) {
+            console.error("\x1b[31mCould not plot:\x1b[0m");
+            console.error(err);
+        }
+
         deepEqual(actual, expected);
 
         console.log(`\x1b[32m✓ (${i})\x1b[0m`);

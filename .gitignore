@@ -2,6 +2,7 @@ node_modules/
 
 build/
 types/
+test/plot/
 
 .DS_Store
 package-lock.json

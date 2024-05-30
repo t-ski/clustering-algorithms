@@ -28,7 +28,8 @@
         "build": "rm -rf ./build/ && rm -rf ./types/ && npx tsc --project ./tsconfig.build.json",
         "lint": "npx eslint ./src/*.ts",
         "lint:fix": "npx eslint --fix ./src/*.ts",
-        "test": "node ./scripts/test.js"
+        "test": "node ./scripts/test.js",
+        "test:plot": "npm run test -- --plot"
     },
     "devDependencies": {
         "@eslint/js": "^9.2.0",

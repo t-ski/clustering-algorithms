@@ -1,0 +1,42 @@
+{
+    "name": "@t-ski/clustering-algorithms",
+    "version": "0.1.0",
+    "description": "",
+    "author": "Thassilo Martin Schiepanski",
+    "homepage": "https://github.com/rapidjs.org/clustering-algorithms#readme",
+    "keywords": [
+        "clustering",
+        "machine-learning"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rapidjs.org/clustering-algorithms.git"
+    },
+    "bugs": {
+        "url": "https://github.com/rapidjs.org/clustering-algorithms/issues"
+    },
+    "main": "./build/api.js",
+    "types": "./types/api.d.ts",
+    "files": [
+        "./build/",
+        "./types/"
+    ],
+    "scripts": {
+        "compile": "npx tsc",
+        "compile:watch": "npm run compile -- --watch",
+        "build": "rm -rf ./build/ && rm -rf ./types/ && npx tsc",
+        "lint": "npx eslint ./src/*.ts",
+        "lint:fix": "npx eslint --fix ./src/*.ts"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.2.0",
+        "@resvg/resvg-js": "^2.6.2",
+        "@types/node": "^20.10.6",
+        "@typescript-eslint/eslint-plugin": "^7.8.0",
+        "@typescript-eslint/parser": "^7.8.0",
+        "eslint": "^8.57.0",
+        "eslint-plugin-typescript": "^0.14.0",
+        "typescript": "^5.3.3",
+        "typescript-eslint": "^7.8.0"
+    }
+}

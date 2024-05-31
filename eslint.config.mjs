@@ -44,7 +44,8 @@ export default tseslint.config(
             "no-async-promise-executor": "off",
             "no-mixed-spaces-and-tabs": "off",
             "no-irregular-whitespace": "off",
-            "no-control-regex": "off"
+            "no-control-regex": "off",
+            "no-constant-condition": "off"
         }
     }
 );

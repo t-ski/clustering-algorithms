@@ -7,18 +7,11 @@ type TDistanceMetricCallback = (vector1: TVector, vector2: TVector) => number;
 
 export abstract class AClustering<D = TVector[], C = TCluster[]> {
 	private static readonly maxIterations = 10000;
-	protected static readonly convergenceThreshold = 0.001;	// dynamic?
-
-	private static iterations = 0;
+	
 	private static distanceMetricCallback: TDistanceMetricCallback = (...args) => Distance.euclidean(...args);
 
 	protected static distance(vector1: TVector, vector2: TVector): number {
     	return AClustering.distanceMetricCallback(vector1, vector2);
-	}
-
-	protected static hasConverged(current: number|TVector|TMatrix, next: number|TVector|TMatrix) {
-		return (++AClustering.iterations > AClustering.maxIterations)
-			|| (AClustering.distanceMetricCallback([ current ].flat(2), [ next ].flat(2)) <= AClustering.convergenceThreshold);
 	}
 	
 	protected static initClusters<T>(size: number): T[] {
@@ -33,9 +26,9 @@ export abstract class AClustering<D = TVector[], C = TCluster[]> {
 		AClustering.distanceMetricCallback = distanceMetricCallback;
 	}
 	
-	
 	protected readonly data: D;
 	
+	private iterations: number = 0;
 	private computedClusters: C;
 
 	constructor(data: D) {
@@ -43,6 +36,11 @@ export abstract class AClustering<D = TVector[], C = TCluster[]> {
 	}
 
     protected abstract cluster(): C;
+
+    protected hasConverged(current: number|TVector|TMatrix, next: number|TVector|TMatrix, threshold: number = 1e-3) {
+    	return (++this.iterations > AClustering.maxIterations)
+			|| (AClustering.distanceMetricCallback([ current ].flat(2), [ next ].flat(2)) <= threshold);
+    }
 
     public get clusters(): C {
     	this.computedClusters = this.computedClusters ?? this.cluster();

@@ -119,7 +119,7 @@ module.exports.plot = function(path, filename, clusters, noise) {
         background: "#FFFFFF",
         fitTo: {
             mode: "width",
-            value: 800,
+            value: 600,
         }
     })
 

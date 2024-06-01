@@ -3,7 +3,6 @@ import { AClustering } from "../AClustering";
 import { ACentroidBasedClustering } from "./ACentroidBasedClustering";
 
 
-
 export class KMedoids extends ACentroidBasedClustering {
 	constructor(data: TVector[], k?: number) {
 		super(data, k);

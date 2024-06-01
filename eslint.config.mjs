@@ -45,7 +45,8 @@ export default tseslint.config(
             "no-mixed-spaces-and-tabs": "off",
             "no-irregular-whitespace": "off",
             "no-control-regex": "off",
-            "no-constant-condition": "off"
+            "no-constant-condition": "off",
+            "no-cond-assign": "off"
         }
     }
 );

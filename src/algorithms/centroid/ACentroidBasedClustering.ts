@@ -1,31 +1,24 @@
 import { TVector, TCluster } from "../../types";
-import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
 import { AClustering } from "../AClustering";
 import { AVectorBasedClustering } from "../AVectorBasedClustering";
 
 
 export abstract class ACentroidBasedClustering extends AVectorBasedClustering {
-	private readonly k: number;
+	protected readonly k: number;
 
 	constructor(data: TVector[], k: number = 2) {
 		super(data);
 
-		this.data.sort((a: TVector, b: TVector) => {
-			return VectorArithmetic.weight(a) - VectorArithmetic.weight(b);
-		});
-
 		this.k = k;
 	}
 
+    protected abstract selectInitialCentroids(): TVector[];
     protected abstract computeNewCentroid(cluster: TCluster): TVector;
-
+	
     protected cluster(): TCluster[] {
     	let clusters: TCluster[] = [];
 
-    	let centroids: TVector[] = [];
-    	for(let i = 1; i <= this.k; i++) {
-    		centroids.push(this.data[i * Math.floor(this.data.length / (this.k + 1))]);
-    	}
+    	let centroids: TVector[] = this.selectInitialCentroids();
         
     	while(true) {
     		clusters = AClustering.initClusters(this.k);

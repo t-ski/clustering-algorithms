@@ -11,6 +11,7 @@ export const util = {
 
 // Algorithm API
 export * from "./algorithms/centroid/KMeans";
+export * from "./algorithms/centroid/KMeans++";
 export * from "./algorithms/centroid/KMedoids";
 
 export * from "./algorithms/density/DBSCAN";

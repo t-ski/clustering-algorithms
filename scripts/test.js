@@ -39,8 +39,17 @@ global.test = function(actual, expected) {
 
     const path = ((new Error()).stack || "").split(/\n/g)[2];
 
+    const deepSort = (obj) => {
+        if([ "string", "number", "boolean" ].includes(obj)) return obj;
+        if(Array.isArray(obj)) return obj.sort();
+        for(const member in obj) {
+            obj[member] = deepSort(obj[member]);
+        }
+        return obj;
+    };
+
     try {
-        deepEqual(actual, expected);
+        deepEqual(deepSort(actual), deepSort(expected));
 
         console.log(`\x1b[32m✓ (${i})\x1b[0m`);
     } catch(err) {

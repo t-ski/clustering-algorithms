@@ -1,9 +1,11 @@
 import { Distance } from "./util/Distance";
 import { VectorDataMap } from "./util/VectorDataMap";
+import { Quality } from "./util/Quality";
 
 export const util = {
 	Distance,
-	VectorDataMap
+	VectorDataMap,
+	Quality
 };
 
 

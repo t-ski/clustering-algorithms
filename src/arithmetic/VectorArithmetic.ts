@@ -33,4 +33,8 @@ export class VectorArithmetic {
 		}
 		return pMean;
 	}
+	
+	public static vectorize(numericValues: (number|TVector)[]): TVector[] {
+		return numericValues.map((numericValue: number|TVector) => [ numericValue ].flat());
+	}
 }

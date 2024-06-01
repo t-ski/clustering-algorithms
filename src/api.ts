@@ -1,7 +1,9 @@
 import { Distance } from "./util/Distance";
+import { VectorDataMap } from "./util/VectorDataMap";
 
 export const util = {
-	Distance
+	Distance,
+	VectorDataMap
 };
 
 

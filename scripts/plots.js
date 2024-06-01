@@ -4,7 +4,7 @@ const { dirname, resolve, join } = require("path");
 const { plot } = require("./plot");
 
 
-const EXAMPLES_PATH = resolve("./examples/");
+const PLOTS_PATH = resolve("./plots/");
 
 
 function toRawFilename(filename) {
@@ -37,6 +37,10 @@ function runExamples(path) {
 }
 
 
+global.DATA = {
+    vector: require("./plots.data.vector.json")
+};
+
 global.plot = function(filename, clusters, noiseCluster) {
     plot(
         dirname(filename),
@@ -46,4 +50,4 @@ global.plot = function(filename, clusters, noiseCluster) {
 };
 
 
-runExamples(EXAMPLES_PATH);
+runExamples(PLOTS_PATH);

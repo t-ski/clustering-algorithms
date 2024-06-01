@@ -4,7 +4,7 @@ const { join, resolve, dirname } = require("path");
 const { Resvg } = require("@resvg/resvg-js");
 
 
-const PLOT_SVG = readFileSync(join(__dirname, "./plot.base.svg")).toString();
+const PLOT_SVG = readFileSync(join(__dirname, "./plot.figure.svg")).toString();
 const PLOT_SVG_SIZE = 50;
 const BASE_CLUSTER_COLOR = "0040A0";
 const NOISE_COLOR = "E0E0E0";

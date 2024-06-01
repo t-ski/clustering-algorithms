@@ -1,5 +1,5 @@
 const { CentroidLinkage } = require("../../build/api");
 
-const clustering = new CentroidLinkage(require("../data.vector.json"), 5);
+const clustering = new CentroidLinkage(DATA.vector, 5);
 
 plot(__filename, clustering.clusters);

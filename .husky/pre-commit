@@ -1,7 +1,7 @@
 npm run build
 npm run test
-npm run examples
+npm run plots
 
-git add ./examples/
+git add ./plots/
 
 npx lint-staged

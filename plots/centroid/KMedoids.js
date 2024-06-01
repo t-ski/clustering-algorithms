@@ -1,5 +1,5 @@
 const { KMedoids } = require("../../build/api");
 
-const clustering = new KMedoids(require("../data.vector.json"), 4);
+const clustering = new KMedoids(DATA.vector, 4);
 
 plot(__filename, clustering.clusters);

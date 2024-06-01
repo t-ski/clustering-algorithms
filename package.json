@@ -29,7 +29,8 @@
         "lint": "npx eslint ./src/*.ts",
         "lint:fix": "npx eslint --fix ./src/*.ts",
         "test": "node ./scripts/test.js",
-        "plots": "node ./scripts/plots.js"
+        "plots": "node ./scripts/plots.js",
+        "example": "node ./example/example.js"
     },
     "devDependencies": {
         "@eslint/js": "^9.2.0",

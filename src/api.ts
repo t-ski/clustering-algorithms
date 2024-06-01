@@ -9,6 +9,8 @@ export const util = {
 export * from "./algorithms/centroid/KMeans";
 export * from "./algorithms/centroid/KMedoids";
 
+export * from "./algorithms/density/MeanShift";
+
 export * from "./algorithms/hierarchy/AverageLinkage";
 export * from "./algorithms/hierarchy/CentroidLinkage";
 export * from "./algorithms/hierarchy/CompleteLinkage";

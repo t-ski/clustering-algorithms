@@ -76,7 +76,10 @@ module.exports.plot = function(path, filename, clusters, noise) {
     clusters = (!Array.isArray((clusters[0] || [])[0]))
     ? clusters.map((cluster, i) => {
         return cluster
-        .map((_, j) => [ j * (PLOT_SVG_SIZE / 10), i * PLOT_SVG_SIZE ]);
+        .map((_, j) => [
+            j * (PLOT_SVG_SIZE / Math.max(...clusters.map((cluster) => cluster.length))),
+            i * (PLOT_SVG_SIZE / (clusters.length))
+        ]);
     })
     : clusters;
 

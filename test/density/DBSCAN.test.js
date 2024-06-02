@@ -1,7 +1,7 @@
 const { DBSCAN } = require("../../build/api");
 
 
-const dbscan1D = new DBSCAN(DATA_1D, 3, 3);
+const dbscan1D = new DBSCAN(DATA.VECTORS_1D, 3, 3);
 test(
     dbscan1D.clusters,
     [
@@ -15,7 +15,7 @@ test(
 );
 
 
-const dbscan2D = new DBSCAN(DATA_1D, 3, 3);
+const dbscan2D = new DBSCAN(DATA.VECTORS_1D, 3, 3);
 test(
     dbscan2D.clusters,
     [

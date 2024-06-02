@@ -31,7 +31,10 @@ function runTests(path) {
 }
 
 
-require("./test.data");
+global.DATA = {
+    ...require("./test.data.graph"),
+    ...require("./test.data.vector")
+};
 
 let i = 0;
 global.test = function(actual, expected) {

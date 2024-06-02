@@ -1,10 +1,10 @@
-global.DATA_1D = [
+module.exports.VECTORS_1D = [
     -0.5, -0.35, -0.2,
     
     10, 15, 9, 17, 14
 ];
 
-global.DATA_2D = [
+module.exports.VECTORS_2D = [
     [ -0.5, 0 ],
     [ -0.35, 0.15 ],
     [ -0.2, -0.1 ],

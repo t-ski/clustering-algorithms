@@ -1,7 +1,7 @@
 const { OPTICS } = require("../../build/api");
 
 
-const optics1D = new OPTICS(DATA_1D, 3, 3);
+const optics1D = new OPTICS(DATA.VECTORS_1D, 3, 3);
 test(
     optics1D.clusters,
     [
@@ -14,7 +14,7 @@ test(
 );
 
 
-const optics2D = new OPTICS(DATA_1D, 3, 3);
+const optics2D = new OPTICS(DATA.VECTORS_1D, 3, 3);
 test(
     optics2D.clusters,
     [

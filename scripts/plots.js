@@ -38,6 +38,7 @@ function runExamples(path) {
 
 
 global.DATA = {
+    graph: require("./plots.data.graph.json"),
     vector: require("./plots.data.vector.json")
 };
 

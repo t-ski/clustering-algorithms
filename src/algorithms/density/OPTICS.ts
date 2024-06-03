@@ -42,7 +42,7 @@ export class OPTICS extends ADensityBasedClustering {
 
 	constructor(data: TVector[], epsilon?: number, minPoints: number = 5) {
 		super(data, epsilon);
-
+		
 		this.minPoints = minPoints;	
 	}
 	

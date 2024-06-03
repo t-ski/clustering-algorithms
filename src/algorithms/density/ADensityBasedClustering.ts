@@ -13,7 +13,7 @@ export abstract class ADensityBasedClustering extends AVectorBasedClustering {
 	}
 	
 	protected estimateEpsilon(): number {
-		return 2;
+		return 2;	// TODO
 	}
 	
 	protected rangeQuery(vector: TVector): TVector[] {

@@ -1,7 +1,7 @@
 import { TVector, TCluster } from "../types";
 
 
-type DataPoint<T> = [ TVector, T ];
+type TDataPoint<T> = [ TVector, T ];
 
 
 export class VectorDataMap<T extends object> {
@@ -9,9 +9,9 @@ export class VectorDataMap<T extends object> {
 	private readonly entityVectorMap: WeakMap<object, TVector>;
 	private readonly vectorEntityMap: Map<string, T[]>;
     
-	constructor(data: DataPoint<T>[]) {
-		this.rawVectors = data.map((point: DataPoint<T>) => point[0]);
-		this.entityVectorMap = new WeakMap(data.map((point: DataPoint<T>) => [ point[1], point[0] ]));
+	constructor(data: TDataPoint<T>[]) {
+		this.rawVectors = data.map((point: TDataPoint<T>) => point[0]);
+		this.entityVectorMap = new WeakMap(data.map((point: TDataPoint<T>) => [ point[1], point[0] ]));
         
 		this.vectorEntityMap = new Map();
 		for(const point of data) {

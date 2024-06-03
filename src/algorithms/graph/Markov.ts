@@ -7,8 +7,8 @@ export class Markov extends AGraphBasedClustering {
 	private readonly e: number;
 	private readonly r: number;
 
-	constructor(data: TMatrix, e: number = 2, r: number = 2) {
-		super(data);
+	constructor(adjacencyMatrix: TMatrix, e: number = 2, r: number = 2) {
+		super(adjacencyMatrix);
 
 		this.e = e;
 		this.r = r;

@@ -105,7 +105,7 @@ module.exports.plot = function(path, filename, clusters, noise) {
                     };"`,
                     `cx="${vector[0] * scaleFactor}"`,
                     `cy="${(vector[1] || 0) * scaleFactor}"`,
-                    `r="${(index === -1) ? 0.275 : 0.35}"`
+                    `r="${(index === -1) ? 0.3 : 0.4}"`
                 ].join(" ")}/>`
             })
             .join("\n")

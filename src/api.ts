@@ -9,6 +9,8 @@ export const util = {
 };
 
 
+export { AClustering } from "./algorithms/AClustering";
+
 // Algorithm API
 export * from "./algorithms/centroid/KMeans";
 export * from "./algorithms/centroid/KMeans++";

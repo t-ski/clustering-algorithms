@@ -1,9 +1,6 @@
-const { deepEqual } = require("assert");
 const { resolve, join } = require("path");
 const { readdirSync } = require("fs");
-
-
-const TEST_PATH = resolve("./test/");
+const { deepEqual } = require("assert");
 
 
 process.on("exit", code => {
@@ -11,37 +8,12 @@ process.on("exit", code => {
 });
 
 
-function runTests(path) {
-    readdirSync(path, {
-        withFileTypes: true
-    })
-    .forEach(dirent => {
-        const subPath = join(path, dirent.name);
-
-        if(dirent.isDirectory()) {
-            runTests(subPath);
-
-            return;
-        }
-        
-        if(!/\.test\.js$/.test(dirent.name)) return;
-
-        require(subPath);
-    });
-}
-
-
-global.DATA = {
-    ...require("./test.data.graph"),
-    ...require("./test.data.vector")
-};
-
 let i = 0;
 global.test = function(actual, expected) {
     i++;
 
     const path = ((new Error()).stack || "").split(/\n/g)[2];
-
+    
     const deepSort = (obj) => {
         if([ "string", "number", "boolean" ].includes(obj)) return obj;
         if(Array.isArray(obj)) return obj.sort();
@@ -67,4 +39,29 @@ global.test = function(actual, expected) {
 };
 
 
-runTests(TEST_PATH);
+function runTests(path) {
+    readdirSync(path, {
+        withFileTypes: true
+    })
+    .forEach(dirent => {
+        const subPath = join(path, dirent.name);
+
+        if(dirent.isDirectory()) {
+            runTests(subPath);
+
+            return;
+        }
+        
+        if(!/\.test\.js$/.test(dirent.name)) return;
+
+        require(subPath);
+    });
+}
+
+global.DATA = {
+    ...require("./min-test.data.graph"),
+    ...require("./min-test.data.vector")
+};
+
+
+runTests(resolve(process.argv.slice(2)[0] ?? "./test/"));

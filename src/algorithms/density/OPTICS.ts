@@ -1,6 +1,6 @@
 import { TVector, TCluster } from "../../types";
 import { AClustering } from "../AClustering";
-import { ADensityBasedClustering } from "./ADensityBasedClustering";
+import { DBSCAN } from "./DBSCAN";
 
 
 interface IPoint {
@@ -33,7 +33,7 @@ class PriorityQueue {
 }
 
 
-export class OPTICS extends ADensityBasedClustering {
+export class OPTICS extends DBSCAN {
 	readonly #computedNoise: TCluster = [];
 	readonly #processedVectors: WeakSet<TVector> = new WeakSet();
 	readonly #reachabilityDistances: WeakMap<TVector, number> = new WeakMap();

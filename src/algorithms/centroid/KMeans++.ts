@@ -1,10 +1,10 @@
 import { TVector, TCluster } from "../../types";
 import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
 import { AClustering } from "../AClustering";
-import { ACentroidBasedClustering } from "./ACentroidBasedClustering";
+import { KMeans } from "./KMeans";
 
 
-export class KMeansPP extends ACentroidBasedClustering {
+export class KMeansPP extends KMeans {
 	constructor(data: TVector[], k?: number) {
 		super(data, k);
 	}
@@ -37,7 +37,13 @@ export class KMeansPP extends ACentroidBasedClustering {
 		return Array.from(intitialCentroids);
 	}
 	
-	protected computeNewCentroid(cluster: TCluster): TVector {
-		return VectorArithmetic.mean(cluster);
+	protected computeNewCentroids(current: { clusters: TCluster[]; }): TVector[] {
+		const { clusters: curClusters } = current;
+		
+		const newCentroids: TVector[] = [];
+		for(let i = 0; i < curClusters.length; i++) {
+			newCentroids.push(VectorArithmetic.mean(curClusters[i]));
+		}
+		return newCentroids;
 	}
 }

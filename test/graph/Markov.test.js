@@ -2,6 +2,6 @@ const { Markov } = require("../../build/api");
 
 
 test(
-    new Markov(DATA.ADJACENCY_MATRIX).clusters,
-    [ [ 0 ], [ 1 ], [ 2, 3 ] ]
+    new Markov(DATA.ADJACENCY_MATRIX, 2, 7).clusters,
+    [ [ 0, 1 ], [ 2 ], [ 3 ] ]
 );

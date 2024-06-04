@@ -28,11 +28,13 @@ export class Markov extends AGraphBasedClustering {
 	}
 
 	protected cluster(): number[][] {
-		let markovMatrix: TMatrix = this.data;
+		let markovMatrix: TMatrix = MatrixArithmetic.copy(this.data);
 		for(let i = 0; i < markovMatrix.length; i++) {
 			markovMatrix[i][i] = markovMatrix[i][i] || 1;
+			for(let j = 0; j < markovMatrix.length; j++) {
+				markovMatrix[i][j] = Math.max(...markovMatrix.flat(2)) - markovMatrix[i][j];
+			}
 		}
-
 		markovMatrix = MatrixArithmetic.normalize(markovMatrix);
 
 		while(true) {
@@ -41,19 +43,7 @@ export class Markov extends AGraphBasedClustering {
 
 			markovMatrix = newMarkovMatrix;
 		}
-
-		const clusters: number[][] = [];
-		let cluster: number[] = [];
-		for(let i = 0; i < markovMatrix.length; i++) {
-			if (markovMatrix[i][i] >= 0.5 && cluster.length) {
-				clusters.push(cluster);
-				cluster = [];
-			}
-			cluster.push(i);
-		}
-		(cluster.length > 0)
-		&& clusters.push(cluster);
-		return clusters
-		.sort((a, b) => a.length - b.length);
+		
+		return this.readClusters(markovMatrix);
 	}
 }

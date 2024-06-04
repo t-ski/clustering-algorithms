@@ -1,10 +1,10 @@
 import { TVector, TCluster } from "../../types";
 import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
 import { AClustering } from "../AClustering";
-import { ACentroidBasedClustering } from "./ACentroidBasedClustering";
+import { KMeans } from "./KMeans";
 
 
-export class KMedoids extends ACentroidBasedClustering {
+export class KMedoids extends KMeans {
 	constructor(data: TVector[], k?: number) {
 		super(data, k);
 	}
@@ -21,25 +21,30 @@ export class KMedoids extends ACentroidBasedClustering {
 		return intitialCentroids;
 	}
 	
-	protected computeNewCentroid(cluster: TCluster): TVector {
-		const medoid = {
-			vector: [] as TVector,
-			distance: Infinity
-		};
-        
-		for(let i = 0; i < cluster.length; i++) {
-			let totalDistance = 0;
-			for(let j = 0; j < cluster.length; j++) {
-				totalDistance += AClustering.distance(cluster[i], cluster[j]);
+	protected computeNewCentroids(current: { clusters: TCluster[]; }): TVector[] {
+		const { clusters: curClusters } = current;
+		
+		const newCentroids: TVector[] = [];
+		for(const curCluster of curClusters) {
+			const medoid = {
+				vector: [] as TVector,
+				distance: Infinity
+			};
+			
+			for(let i = 0; i < curCluster.length; i++) {
+				let totalDistance = 0;
+				for(let j = 0; j < curCluster.length; j++) {
+					totalDistance += AClustering.distance(curCluster[i], curCluster[j]);
+				}
+				totalDistance /= curCluster.length;
+				
+				if(totalDistance >= medoid.distance) continue;
+
+				medoid.vector = curCluster[i];
+				medoid.distance = totalDistance;
 			}
-			totalDistance /= cluster.length;
-            
-			if(totalDistance >= medoid.distance) continue;
-
-			medoid.vector = cluster[i];
-			medoid.distance = totalDistance;
+			newCentroids.push(VectorArithmetic.mean(curCluster));
 		}
-
-		return medoid.vector;
+		return newCentroids;
 	}
 }

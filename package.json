@@ -3,17 +3,17 @@
     "version": "0.1.0",
     "description": "",
     "author": "Thassilo Martin Schiepanski",
-    "homepage": "https://github.com/rapidjs.org/clustering-algorithms#readme",
+    "homepage": "https://github.com/t-ski/clustering-algorithms#readme",
     "keywords": [
         "clustering",
         "machine-learning"
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/rapidjs.org/clustering-algorithms.git"
+        "url": "git+https://github.com/t-ski/clustering-algorithms.git"
     },
     "bugs": {
-        "url": "https://github.com/rapidjs.org/clustering-algorithms/issues"
+        "url": "https://github.com/t-ski/clustering-algorithms/issues"
     },
     "main": "./build/api.js",
     "types": "./types/api.d.ts",
@@ -28,7 +28,7 @@
         "build": "rm -rf ./build/ && rm -rf ./types/ && npx tsc --project ./tsconfig.build.json",
         "lint": "npx eslint ./src/*.ts",
         "lint:fix": "npx eslint --fix ./src/*.ts",
-        "test": "node ./scripts/test.js",
+        "test": "node ./scripts/min-test.js",
         "plots": "node ./scripts/plots.js",
         "example": "node ./example/example.js"
     },

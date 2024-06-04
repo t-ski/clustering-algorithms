@@ -20,6 +20,7 @@ export * from "./algorithms/density/DBSCAN";
 export * from "./algorithms/density/OPTICS";
 export * from "./algorithms/density/MeanShift";
 
+export * from "./algorithms/graph/Divisive";
 export * from "./algorithms/graph/Markov";
 
 export * from "./algorithms/hierarchy/AverageLinkage";

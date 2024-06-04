@@ -118,7 +118,15 @@ clA.<algorithm>(adjacencyMatrix: TMatrix, k: number = 2): AClustering<number[]>
 > Input to graph-based clustering is a target graph's adjacency matrix. Output corresponds to clusters of related graph node indexes.
 
 ``` ts
-new clA.Markov(DATA, 2, 4).clusters;
+new clA.Divisive(DATA, 2).clusters;
+```
+
+#### Divisive Clustering
+
+`O = Θ(n²)`
+
+``` ts
+clA.Divisive(adjacencyMatrix, k: number = 2)
 ```
 
 #### Markov Clustering (MCL)

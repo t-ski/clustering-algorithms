@@ -9,14 +9,14 @@ export class KMedoids extends KMeans {
 		super(data, k);
 	}
 	
-	protected selectInitialCentroids(): TVector[] {
-		this.data.sort((a: TVector, b: TVector) => {
+	protected selectInitialCentroids(data: TVector[]): TVector[] {
+		data.sort((a: TVector, b: TVector) => {
 			return VectorArithmetic.weight(a) - VectorArithmetic.weight(b);
 		});
 		
 		const intitialCentroids: TVector[] = [];
 		for(let i = 1; i <= this.k; i++) {
-			intitialCentroids.push(this.data[i * Math.floor(this.data.length / (this.k + 1))]);
+			intitialCentroids.push(data[i * Math.floor(data.length / (this.k + 1))]);
 		}
 		return intitialCentroids;
 	}

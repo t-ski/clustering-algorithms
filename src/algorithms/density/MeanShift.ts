@@ -10,15 +10,15 @@ export class MeanShift extends ADensityBasedClustering {
 		super(data, epsilon);
 	}
 
-	protected cluster(): TCluster[] {
+	protected cluster(data: TVector[]): TCluster[] {
 		const shiftVectors: TVector[] = [];
 		
-		for(let i = 0; i < this.data.length; i++) {
-			shiftVectors[i] = Object.assign([], this.data[i]);	
+		for(let i = 0; i < data.length; i++) {
+			shiftVectors[i] = Object.assign([], data[i]);	
 			while(true) {
 				let totalWeight = 0;
 				let newVector: TVector = [];
-				for(const bandwidthVector of this.data) {
+				for(const bandwidthVector of data) {
 					const distance: number = AClustering.distance(shiftVectors[i], bandwidthVector);
 					const weight = Math.exp(-(distance**2) / (2 * this.epsilon**2));
 					
@@ -41,8 +41,8 @@ export class MeanShift extends ADensityBasedClustering {
 			...new Set(shiftVectors.map((vector: TVector) => vector.toString()))
 		];
 		const clusters: TCluster[] = AClustering.initClusters(uniqueShiftVectors.length);
-		for(let i = 0; i < this.data.length; i++) {
-			clusters[uniqueShiftVectors.indexOf(shiftVectors[i].toString())].push(this.data[i]);
+		for(let i = 0; i < data.length; i++) {
+			clusters[uniqueShiftVectors.indexOf(shiftVectors[i].toString())].push(data[i]);
 		}
 
 		return clusters;

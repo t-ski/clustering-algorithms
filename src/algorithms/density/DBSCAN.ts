@@ -14,22 +14,22 @@ export class DBSCAN extends ADensityBasedClustering {
 		this.minPoints = minPoints;
 	}
 	
-	protected rangeQuery(vector: TVector): TVector[] {
+	protected rangeQuery(data: TVector[], vector: TVector): TVector[] {
 		const neighbours: {
 			distance: number;
 			vector: TVector;
 		}[] = [];
 		
-		for(let i = 0; i < this.data.length; i++) {
-			if(i === this.data.indexOf(vector)) continue;
+		for(let i = 0; i < data.length; i++) {
+			if(i === data.indexOf(vector)) continue;
 			
-			const distance: number = AClustering.distance(vector, this.data[i]);
+			const distance: number = AClustering.distance(vector, data[i]);
 
 			if(distance > this.epsilon) continue;
 
 			neighbours.push({
 				distance,
-				vector: this.data[i]
+				vector: data[i]
 			});
 		}
 
@@ -38,14 +38,14 @@ export class DBSCAN extends ADensityBasedClustering {
 		return neighbours.map((neighbour) => neighbour.vector);
 	}
 	
-	protected cluster(): TCluster[] {		
+	protected cluster(data: TVector[]): TCluster[] {		
 		const labels: WeakMap<TVector, number> = new WeakMap();
 
 		let c = -1;
-		for(const vector of this.data) {
+		for(const vector of data) {
 			if(labels.has(vector)) continue;
 
-		   	const neighbours: TVector[] = this.rangeQuery(vector);
+		   	const neighbours: TVector[] = this.rangeQuery(data, vector);
 		   	if(neighbours.length + 1 < this.minPoints) {
 				labels.set(vector, -1);
 
@@ -61,7 +61,7 @@ export class DBSCAN extends ADensityBasedClustering {
 				
 				labels.set(neighbour, c);
 				
-				const nextNeigbours: TVector[] = this.rangeQuery(neighbour);
+				const nextNeigbours: TVector[] = this.rangeQuery(data, neighbour);
 
 				if(nextNeigbours.length + 1 < this.minPoints) continue;
 
@@ -70,7 +70,7 @@ export class DBSCAN extends ADensityBasedClustering {
 		}
 		
 		const clusters: TCluster[] = AClustering.initClusters(c + 1);
-		for(const vector of this.data) {
+		for(const vector of data) {
 			const index: number = labels.get(vector);
 			(index < 0)
 				? this.#computedNoise.push(vector)

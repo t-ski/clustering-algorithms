@@ -46,19 +46,19 @@ export class OPTICS extends DBSCAN {
 		this.minPoints = minPoints;	
 	}
 	
-	private coreDistance(vector: TVector): number {
-		const neighbours: TVector[] = this.rangeQuery(vector);
+	private coreDistance(data: TVector[], vector: TVector): number {
+		const neighbours: TVector[] = this.rangeQuery(data, vector);
 		return (neighbours.length + 1 >= this.minPoints)
 			? AClustering.distance(vector, neighbours[this.minPoints + 1])
 			: undefined;
 	}
 
-	protected update(neighbours: TVector[], vector: TVector, seeds: PriorityQueue) {
+	protected update(data: TVector[], neighbours: TVector[], vector: TVector, seeds: PriorityQueue) {
 		for(const neighbour of neighbours) {
 			if(this.#processedVectors.has(neighbour)) continue;
 
 			const newReachabilityDistance: number = Math.max(
-				this.coreDistance(vector),
+				this.coreDistance(data, vector),
 				AClustering.distance(vector, neighbour)
 			);
 			
@@ -74,21 +74,21 @@ export class OPTICS extends DBSCAN {
 		}
 	}
 
-	protected cluster(): TCluster[] {
+	protected cluster(data: TVector[]): TCluster[] {
 		const orderedList: TVector[] = [];
 		
-		for(const vector of this.data) {
+		for(const vector of data) {
 			if(this.#processedVectors.has(vector)) continue;
 			this.#processedVectors.add(vector);
 
 			orderedList.push(vector);
 
-			if(!this.coreDistance(vector)) continue;
+			if(!this.coreDistance(data, vector)) continue;
 
 			const seeds = new PriorityQueue();
-			const neighbours: TVector[] = this.rangeQuery(vector);
+			const neighbours: TVector[] = this.rangeQuery(data, vector);
 			
-			this.update(neighbours, vector, seeds);
+			this.update(data, neighbours, vector, seeds);
 
 			let seedVector: TVector;
 			while(seedVector = seeds.dequeue()) {
@@ -97,11 +97,11 @@ export class OPTICS extends DBSCAN {
 
 				orderedList.push(seedVector);
 				
-				if(!this.coreDistance(seedVector)) continue;
+				if(!this.coreDistance(data, seedVector)) continue;
 
-				const nextNeigbours: TVector[] = this.rangeQuery(seedVector);
+				const nextNeigbours: TVector[] = this.rangeQuery(data, seedVector);
 
-				this.update(nextNeigbours, seedVector, seeds);
+				this.update(data, nextNeigbours, seedVector, seeds);
 			}
 		}
 		

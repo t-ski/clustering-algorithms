@@ -1,9 +1,9 @@
 import { TMatrix } from "../../types";
 import { MatrixArithmetic } from "../../arithmetic/MatrixArithmetic";
-import { AGraphBasedClustering } from "./AGraphBasedClustering";
+import { ConnectedComponents } from "./ConnectedComponents";
 
 
-export class Markov extends AGraphBasedClustering {
+export class Markov extends ConnectedComponents {
 	private readonly e: number;
 	private readonly r: number;
 
@@ -27,13 +27,15 @@ export class Markov extends AGraphBasedClustering {
 		return MatrixArithmetic.power(markovMatrix, this.e);
 	}
 
-	protected cluster(): number[][] {
-		let markovMatrix: TMatrix = MatrixArithmetic.copy(this.data);
+	protected cluster(adjacencyMatrix: TMatrix): number[][] {
+		let markovMatrix: TMatrix = MatrixArithmetic.copy(adjacencyMatrix);
 		for(let i = 0; i < markovMatrix.length; i++) {
-			markovMatrix[i][i] = markovMatrix[i][i] || 1;
 			for(let j = 0; j < markovMatrix.length; j++) {
-				markovMatrix[i][j] = Math.max(...markovMatrix.flat(2)) - markovMatrix[i][j];
+				markovMatrix[i][j] = markovMatrix[i][j]
+					? Math.max(...markovMatrix.flat(2)) - markovMatrix[i][j]
+					: 0;
 			}
+			markovMatrix[i][i] = markovMatrix[i][i] || 1;
 		}
 		markovMatrix = MatrixArithmetic.normalize(markovMatrix);
 
@@ -44,6 +46,6 @@ export class Markov extends AGraphBasedClustering {
 			markovMatrix = newMarkovMatrix;
 		}
 		
-		return this.readClusters(markovMatrix);
+		return super.cluster(markovMatrix);
 	}
 }

@@ -15,8 +15,8 @@ export abstract class AHierarchyBasedClustering extends AVectorBasedClustering {
 	
 	protected abstract clusterDistance(c1: TCluster, c2: TCluster): number;
 	
-	protected cluster(): TCluster[] {
-		const clusters: TCluster[] = this.data.map((vector: TVector) => [ vector ]);
+	protected cluster(data: TVector[]): TCluster[] {
+		const clusters: TCluster[] =data.map((vector: TVector) => [ vector ]);
 		
 		while(clusters.length > this.k) {
 			let minDistance: number = Infinity;

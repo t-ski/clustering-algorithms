@@ -1,9 +1,9 @@
 import { TMatrix } from "../../types";
 import { MatrixArithmetic } from "../../arithmetic/MatrixArithmetic";
-import { AGraphBasedClustering } from "./AGraphBasedClustering";
+import { ConnectedComponents } from "./ConnectedComponents";
 
 
-export class Divisive extends AGraphBasedClustering {
+export class Divisive extends ConnectedComponents {
 	private readonly k: number;
 
 	constructor(adjacencyMatrix: TMatrix, k: number = 2) {
@@ -12,8 +12,8 @@ export class Divisive extends AGraphBasedClustering {
 		this.k = k;
 	}
 	
-	protected cluster(): number[][] {
-		const sparsificationMatrix: TMatrix = MatrixArithmetic.copy(this.data);
+	protected cluster(adjacencyMatrix: TMatrix): number[][] {
+		const sparsificationMatrix: TMatrix = MatrixArithmetic.copy(adjacencyMatrix);
 		
 		let clusters: number[][];
 		do {
@@ -27,14 +27,14 @@ export class Divisive extends AGraphBasedClustering {
 				}
 			}
 			
-			clusters = this.readClusters(sparsificationMatrix);
-
+			clusters = super.cluster(sparsificationMatrix);
+			
 			sparsificationMatrix[maxCell[0]][maxCell[1]] = 0;
 		} while(
-			   (clusters.length > this.k)
-			&& (Math.max(...sparsificationMatrix.flat(2)) !== 0)
+			   (clusters.length < this.k)
+			&& (Math.max(...sparsificationMatrix.flat(2).map((value: number) => Math.abs(value))) !== 0)
 		);
-
+			
 		return clusters;
 	}
 }

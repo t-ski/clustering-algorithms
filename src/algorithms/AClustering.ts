@@ -25,8 +25,8 @@ export abstract class AClustering<D = TVector[], C = TCluster[]> {
 	public static setDistanceMetric(distanceMetricCallback: TDistanceMetricCallback) {
 		AClustering.distanceMetricCallback = distanceMetricCallback;
 	}
-	
-	protected readonly data: D;
+
+	private readonly data: D;
 	
 	#iterations: number = 0;
 	#computedClusters: C;
@@ -35,15 +35,15 @@ export abstract class AClustering<D = TVector[], C = TCluster[]> {
 		this.data = data;
 	}
 
-    protected abstract cluster(): C;
+    protected abstract cluster(data: D): C;
 
     protected hasConverged(current: number|TVector|TMatrix, next: number|TVector|TMatrix, threshold: number = 1e-3) {
     	return (++this.#iterations > AClustering.maxIterations)
 			|| (AClustering.distanceMetricCallback([ current ].flat(2), [ next ].flat(2)) <= threshold);
     }
-
+	
     public get clusters(): C {
-    	this.#computedClusters = this.#computedClusters ?? this.cluster();
+    	this.#computedClusters = this.#computedClusters ?? this.cluster(this.data);
 		
     	return this.#computedClusters;
     }

@@ -118,12 +118,20 @@ clA.<algorithm>(adjacencyMatrix: TMatrix, k: number = 2): AClustering<number[]>
 > Input to graph-based clustering is a target graph's adjacency matrix. Output corresponds to clusters of related graph node indexes.
 
 ``` ts
-new clA.Divisive(DATA, 2).clusters;
+new clA.ConnectedComponents(DATA).clusters;
+```
+
+#### Connected Components
+
+`O = Θ(n³)`
+
+``` ts
+clA.ConnectedComponents(adjacencyMatrix)
 ```
 
 #### Divisive Clustering
 
-`O = Θ(n²)`
+`O = Θ(n³)`
 
 ``` ts
 clA.Divisive(adjacencyMatrix, k: number = 2)

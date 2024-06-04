@@ -13,10 +13,10 @@ export class KMeans extends AVectorBasedClustering {
 		this.k = k;
 	}
 
-	protected selectInitialCentroids(): TVector[] {
+	protected selectInitialCentroids(data: TVector[]): TVector[] {
 		const intitialCentroids: Set<TVector> = new Set();
 		while(intitialCentroids.size < this.k) {
-			intitialCentroids.add(this.data[Math.round(Math.random() * (this.data.length - 1))]);
+			intitialCentroids.add(data[Math.round(Math.random() * (data.length - 1))]);
 		}
 		return Array.from(intitialCentroids);
 	}
@@ -34,14 +34,14 @@ export class KMeans extends AVectorBasedClustering {
 		return newCentroids;
 	}
 	
-	protected cluster(): TCluster[] {
+	protected cluster(data: TVector[]): TCluster[] {
     	let clusters: TCluster[] = [];
-    	let centroids: TVector[] = this.selectInitialCentroids();
+    	let centroids: TVector[] = this.selectInitialCentroids(data);
 		
     	while(true) {
     		clusters = AClustering.initClusters(this.k);
 			
-    		for(const vector of this.data) {
+    		for(const vector of data) {
     			let closestCentroid: TVector = centroids[0];
     			for(const centroid of centroids.slice(1)) {
     				closestCentroid = (AClustering.distance(vector, centroid) < AClustering.distance(vector, closestCentroid))

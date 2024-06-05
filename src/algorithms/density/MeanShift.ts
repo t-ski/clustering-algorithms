@@ -1,5 +1,5 @@
+import * as vectorArithmetic from "../../arithmetic/vector";
 import { TVector, TCluster } from "../../types";
-import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
 import { AClustering } from "../AClustering";
 import { ADensityBasedClustering } from "./ADensityBasedClustering";
 
@@ -22,19 +22,19 @@ export class MeanShift extends ADensityBasedClustering {
 					const distance: number = AClustering.distance(shiftVectors[i], bandwidthVector);
 					const weight = Math.exp(-(distance**2) / (2 * this.epsilon**2));
 					
-					newVector = VectorArithmetic.sum(VectorArithmetic.scale(bandwidthVector, weight), newVector);
+					newVector = vectorArithmetic.sum(vectorArithmetic.scale(bandwidthVector, weight), newVector);
 
 					totalWeight += weight;
 				}
 
-				newVector = VectorArithmetic.scale(newVector, 1 / totalWeight);
+				newVector = vectorArithmetic.scale(newVector, 1 / totalWeight);
 
 				if(this.hasConverged(shiftVectors[i], newVector)) break;
 
 				shiftVectors[i] = newVector;
 			}
 
-			shiftVectors[i] = VectorArithmetic.fix(shiftVectors[i], 0);
+			shiftVectors[i] = vectorArithmetic.fix(shiftVectors[i], 0);
 		}
 
 		const uniqueShiftVectors: string[] = [

@@ -1,11 +1,11 @@
-import { Distance } from "./util/Distance";
+import * as distance from "./util/distance";
+import * as quality from "./util/quality";
 import { VectorDataMap } from "./util/VectorDataMap";
-import { Quality } from "./util/Quality";
 
 export const util = {
-	Distance,
-	VectorDataMap,
-	Quality
+	distance,
+	quality,
+	VectorDataMap
 };
 
 
@@ -30,3 +30,4 @@ export * from "./algorithms/hierarchy/CompleteLinkage";
 export * from "./algorithms/hierarchy/HausdorffLinkage";
 export * from "./algorithms/hierarchy/MedianLinkage";
 export * from "./algorithms/hierarchy/SingleLinkage";
+export * from "./algorithms/hierarchy/Ward";

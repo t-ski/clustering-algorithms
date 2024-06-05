@@ -1,5 +1,5 @@
+import * as matrixArithmetic from "../../arithmetic/matrix";
 import { TMatrix } from "../../types";
-import { MatrixArithmetic } from "../../arithmetic/MatrixArithmetic";
 import { ConnectedComponents } from "./ConnectedComponents";
 
 
@@ -13,7 +13,7 @@ export class Divisive extends ConnectedComponents {
 	}
 	
 	protected cluster(adjacencyMatrix: TMatrix): number[][] {
-		const sparsificationMatrix: TMatrix = MatrixArithmetic.copy(adjacencyMatrix);
+		const sparsificationMatrix: TMatrix = matrixArithmetic.copy(adjacencyMatrix);
 		
 		let clusters: number[][];
 		do {

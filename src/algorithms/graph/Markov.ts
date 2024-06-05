@@ -1,5 +1,5 @@
+import * as matrixArithmetic from "../../arithmetic/matrix";
 import { TMatrix } from "../../types";
-import { MatrixArithmetic } from "../../arithmetic/MatrixArithmetic";
 import { ConnectedComponents } from "./ConnectedComponents";
 
 
@@ -15,7 +15,7 @@ export class Markov extends ConnectedComponents {
 	}
 	
 	private inflate(markovMatrix: TMatrix): TMatrix {
-		return MatrixArithmetic.normalize(
+		return matrixArithmetic.normalize(
 			markovMatrix
 			.map(row => {
 				return row.map((cell: number) => cell**this.r);
@@ -24,11 +24,11 @@ export class Markov extends ConnectedComponents {
 	}
 	
 	private expand(markovMatrix: TMatrix): TMatrix {
-		return MatrixArithmetic.power(markovMatrix, this.e);
+		return matrixArithmetic.power(markovMatrix, this.e);
 	}
 
 	protected cluster(adjacencyMatrix: TMatrix): number[][] {
-		let markovMatrix: TMatrix = MatrixArithmetic.copy(adjacencyMatrix);
+		let markovMatrix: TMatrix = matrixArithmetic.copy(adjacencyMatrix);
 		for(let i = 0; i < markovMatrix.length; i++) {
 			for(let j = 0; j < markovMatrix.length; j++) {
 				markovMatrix[i][j] = markovMatrix[i][j]
@@ -37,7 +37,7 @@ export class Markov extends ConnectedComponents {
 			}
 			markovMatrix[i][i] = markovMatrix[i][i] || 1;
 		}
-		markovMatrix = MatrixArithmetic.normalize(markovMatrix);
+		markovMatrix = matrixArithmetic.normalize(markovMatrix);
 
 		while(true) {
 			const newMarkovMatrix: TMatrix = this.inflate(this.expand(markovMatrix));

@@ -1,5 +1,5 @@
+import * as vectorArithmetic from "../../arithmetic/vector";
 import { TCluster, TVector } from "../../types";
-import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
 import { AClustering } from "../AClustering";
 import { AHierarchyBasedClustering } from "./AHierarchyBasedClustering";
 
@@ -12,11 +12,11 @@ export class MedianLinkage extends AHierarchyBasedClustering {
 	private median(cluster: TCluster): TVector {
 		const orderedCluster = [ ...cluster ]
 		.sort((a: TVector, b: TVector) => {
-			return VectorArithmetic.weight(a) - VectorArithmetic.weight(b);
+			return vectorArithmetic.weight(a) - vectorArithmetic.weight(b);
 		});
 		const i = Math.floor(cluster.length / 2);
 		return !(cluster.length % 2)
-			? VectorArithmetic.mean([ orderedCluster[i - 1], orderedCluster[i] ])
+			? vectorArithmetic.mean([ orderedCluster[i - 1], orderedCluster[i] ])
 			: orderedCluster[i];
 	}
 

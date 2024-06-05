@@ -6,16 +6,17 @@ Pure TypeScript implementations of common clustering algorithms.
 npm install t-ski/clustering-algorithms
 ```
 
-1. [Interface](#interface)
-2. [Algorithms](#algorithms)
-3. [Utilities](#utilities)
+[1. Interface](#interface)
+<sub>&emsp;|&emsp;</sub>
+[2. Algorithms](#algorithms)
+<sub>&emsp;|&emsp;</sub>
+[3. Utilities](#utilities)
 
 ![Example Plots](./examples.png)
 
 ## Interface
 
 ``` ts
-// e.g.
 import * as clA from "t-ski/clustering-algorithms"
 ```
 
@@ -205,6 +206,14 @@ clA.MedianLinkage(data, k?)
 clA.SingleLinkage(data, k?)
 ```
 
+#### Ward
+
+`O = Θ(n³)`
+
+``` ts
+clA.Ward(data, k?)
+```
+
 ## Utilities
 
 ### Distance Metrics
@@ -212,11 +221,11 @@ clA.SingleLinkage(data, k?)
 `f: (ℝ×…×ℝ)² ↦ ℕ`
 
 ``` ts
-clA.util.Distance.<metric>(p1: TVector, p2: TVector = []): number
+clA.util.distance.<metric>(p1: TVector, p2: TVector = []): number
 ```
 
 ``` ts
-clA.AClustering.setDistanceMetric(util.Distance.manhattan);
+clA.AClustering.setDistanceMetric(util.distance.manhattan);
 
 const clusters = new clA.KMeans(DATA, 3).clusters;
 ```
@@ -224,25 +233,25 @@ const clusters = new clA.KMeans(DATA, 3).clusters;
 #### Euclidean (2-Norm) `default`
 
 ``` ts
-clA.util.Distance.euclidean(p1: TVector, p2: TVector = []): number
+clA.util.distance.euclidean(p1: TVector, p2: TVector = []): number
 ```
 
 #### Manhattan 
 
 ``` ts
-clA.util.Distance.manhattan(p1: TVector, p2: TVector = []): number
+clA.util.distance.manhattan(p1: TVector, p2: TVector = []): number
 ```
 
 #### Chebyshev 
 
 ``` ts
-clA.util.Distance.chebyshev(p1: TVector, p2: TVector = []): number
+clA.util.distance.chebyshev(p1: TVector, p2: TVector = []): number
 ```
 
 #### Cosine (normal)
 
 ``` ts
-clA.util.Distance.cosine(p1: TVector, p2: TVector = []): number
+clA.util.distance.cosine(p1: TVector, p2: TVector = []): number
 ```
 
 ---
@@ -250,13 +259,13 @@ clA.util.Distance.cosine(p1: TVector, p2: TVector = []): number
 ### Quality Metrics
 
 ``` ts
-clA.util.Quality.<metric>(clusters: TCluster[]): number
+clA.util.quality.<metric>(clusters: TCluster[]): number
 ```
 
 ``` ts
 const clusters = new clA.KMeans(DATA, 3).clusters;
 
-const clusteringQuality = clA.util.Quality.silhouetteCoefficient(clusters);
+const clusteringQuality = clA.util.quality.silhouetteCoefficient(clusters);
 ```
 
 #### Silhouette Coefficient
@@ -264,7 +273,7 @@ const clusteringQuality = clA.util.Quality.silhouetteCoefficient(clusters);
 `f: ℕ×(ℝ×…×ℝ) ↦ [-1,+1]`
 
 ``` ts
-clA.util.Quality.silhouetteCoefficient(clusters: TCluster[]): number
+clA.util.quality.silhouetteCoefficient(clusters: TCluster[]): number
 ```
 
 #### Dunn Index
@@ -272,7 +281,7 @@ clA.util.Quality.silhouetteCoefficient(clusters: TCluster[]): number
 `f: ℕ×(ℝ×…×ℝ) ↦ [0,+∞) → +∞`
 
 ``` ts
-clA.util.Quality.dunnIndey(clusters: TCluster[]): number
+clA.util.quality.dunnIndey(clusters: TCluster[]): number
 ```
 // Dunn → [0,+∞) ↑
 
@@ -281,40 +290,26 @@ clA.util.Quality.dunnIndey(clusters: TCluster[]): number
 `f: ℕ×(ℝ×…×ℝ) ↦ [0,+∞) → 0`
 
 ``` ts
-clA.util.Quality.daviesBouldinIndex(clusters: TCluster[]): number
+clA.util.quality.daviesBouldinIndex(clusters: TCluster[]): number
 ```
 
 ---
 
 ### Vector Data Map
 
-The `VectorDataMap` utility class helps with associating arbitrary entites with data points:
+The `VectorDataMap` utility class helps with associating arbitrary entites with data points ([View Example](./example/example.js)).
 
 ``` ts
 type TDataPoint<T> = [ TVector, T ]
 
 new clA.util.VectorDataMap<T>(data: TDataPoint<T>[]): {
     vectors: TVector[];
-
+    
     getEntity: (vector: TVector) => T|T[];
     getVector: (entity: T) => TVector;
     getCluster: (clusters: TCluster[], vector: TVector) => number|number[];
     getCluster: (clusters: TCluster[], entity: T) => number|number[];
 }
-```
-
-``` ts
-const dataMap = new util.VectorDataMap(DATA);
-
-const clustering = new DBSCAN(dataMap.vectors, 50, 4);
-const focusVector = [ 646.04912, 258.00177 ];
-
-console.log(`ID: ${
-    dataMap.getEntity(focusVector)?.id
-}`);
-console.log(`in cluster: ${
-    dataMap.getCluster(clustering.clusters, focusVector)
-}`);
 ```
 
 ##

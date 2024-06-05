@@ -9,24 +9,24 @@ const DATA = {
 
 test(
     Math.round(
-        util.Distance.euclidean(DATA.actual, DATA.expected)
+        util.distance.euclidean(DATA.actual, DATA.expected)
     ),
     10
 );
 
 test(
-    util.Distance.manhattan(DATA.actual, DATA.expected),
+    util.distance.manhattan(DATA.actual, DATA.expected),
     14
 );
 
 test(
-    util.Distance.chebyshev(DATA.actual, DATA.expected),
+    util.distance.chebyshev(DATA.actual, DATA.expected),
     6
 );
 
 test(
     parseFloat(
-        util.Distance.cosine(DATA.actual, DATA.expected)
+        util.distance.cosine(DATA.actual, DATA.expected)
         .toFixed(2)
     ),
     1.08

@@ -1,5 +1,5 @@
 import { TCluster, TVector } from "../../types";
-import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
+import * as vectorArithmetic from "../../arithmetic/vector";
 import { AClustering } from "../AClustering";
 import { AHierarchyBasedClustering } from "./AHierarchyBasedClustering";
 
@@ -10,6 +10,6 @@ export class CentroidLinkage extends AHierarchyBasedClustering {
 	}
 
 	protected clusterDistance(c1: TCluster, c2: TCluster): number {
-		return AClustering.distance(VectorArithmetic.mean(c1), VectorArithmetic.mean(c2));
+		return AClustering.distance(vectorArithmetic.mean(c1), vectorArithmetic.mean(c2));
 	}
 }

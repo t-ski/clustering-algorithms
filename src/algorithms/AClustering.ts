@@ -1,5 +1,5 @@
 import { TVector, TCluster, TMatrix } from "../types";
-import { Distance } from "../util/Distance";
+import { euclidean } from "../util/distance";
 
 
 type TDistanceMetricCallback = (vector1: TVector, vector2: TVector) => number;
@@ -8,7 +8,7 @@ type TDistanceMetricCallback = (vector1: TVector, vector2: TVector) => number;
 export abstract class AClustering<D = TVector[], C = TCluster[]> {
 	private static readonly maxIterations = 10000;
 	
-	private static distanceMetricCallback: TDistanceMetricCallback = (...args) => Distance.euclidean(...args);
+	private static distanceMetricCallback: TDistanceMetricCallback = (...args) => euclidean(...args);
 
 	protected static distance(vector1: TVector, vector2: TVector): number {
     	return AClustering.distanceMetricCallback(vector1, vector2);

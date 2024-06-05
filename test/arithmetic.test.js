@@ -1,9 +1,9 @@
-const { MatrixArithmetic } = require("../build/arithmetic/MatrixArithmetic");
-const { VectorArithmetic } = require("../build/arithmetic/VectorArithmetic");
+const matrixArithmetic = require("../build/arithmetic/matrix-arithmetic");
+const vectorArithmetic = require("../build/arithmetic/vector-arithmetic");
 
 
 test(
-    MatrixArithmetic.identity([
+    matrixArithmetic.identity([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ],
         [ 3, 2, 2 ]
@@ -16,7 +16,7 @@ test(
 );
 
 test(
-    MatrixArithmetic.transpose([
+    matrixArithmetic.transpose([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ],
         [ 3, 2, 2 ]
@@ -29,7 +29,7 @@ test(
 );
 
 test(
-    MatrixArithmetic.invert([
+    matrixArithmetic.invert([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ],
         [ 3, 2, 2 ]
@@ -42,11 +42,11 @@ test(
 );
 
 test(
-    MatrixArithmetic.normalize([
+    matrixArithmetic.normalize([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ],
         [ 3, 2, 2 ]
-    ]).map((vector) => VectorArithmetic.fix(vector, 1)),
+    ]).map((vector) => vectorArithmetic.fix(vector, 1)),
     [
         [ 0.2, 0.4, 0.2 ],
         [ 0.4, 0.3, 0.5 ],
@@ -55,7 +55,7 @@ test(
 );
 
 test(
-    MatrixArithmetic.multiply([
+    matrixArithmetic.multiply([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ],
         [ 3, 2, 2 ]
@@ -72,7 +72,7 @@ test(
 );
 
 test(
-    MatrixArithmetic.multiply([
+    matrixArithmetic.multiply([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ]
     ], [
@@ -86,7 +86,7 @@ test(
 );
 
 test(
-    MatrixArithmetic.power([
+    matrixArithmetic.power([
         [ 2, 3, 1 ],
         [ 4, 2, 3 ],
         [ 3, 2, 2 ]
@@ -100,21 +100,21 @@ test(
 
 
 test(
-    VectorArithmetic.weight([ 2, 4, 1 ]),
+    vectorArithmetic.weight([ 2, 4, 1 ]),
     7
 );
 
 test(
-    VectorArithmetic.sum([ 2, 4, 1 ], [ 3, 1, 2 ]),
+    vectorArithmetic.sum([ 2, 4, 1 ], [ 3, 1, 2 ]),
     [ 5, 5, 3 ]
 );
 
 test(
-    VectorArithmetic.scale([ 2, 4, 1 ], 2),
+    vectorArithmetic.scale([ 2, 4, 1 ], 2),
     [ 4, 8, 2 ]
 );
 
 test(
-    VectorArithmetic.mean([ [ 2, 4, 1 ], [ 3, 1, 2 ] ]),
+    vectorArithmetic.mean([ [ 2, 4, 1 ], [ 3, 1, 2 ] ]),
     [ 2.5, 2.5, 1.5 ]
 );

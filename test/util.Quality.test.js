@@ -17,33 +17,33 @@ const CLUSTERING_BAD = [
 
 // Silhouette → [-1,1] ↑
 test(
-    parseFloat(util.Quality.silhouetteCoefficient(CLUSTERING_GOOD).toFixed(2)),
+    parseFloat(util.quality.silhouetteCoefficient(CLUSTERING_GOOD).toFixed(2)),
     0.91
 );
 test(
-    parseFloat(util.Quality.silhouetteCoefficient(CLUSTERING_BAD).toFixed(2)),
+    parseFloat(util.quality.silhouetteCoefficient(CLUSTERING_BAD).toFixed(2)),
     -0.22
 );
 
 
 // Dunn → [0,+∞) ↑
 test(
-    parseFloat(util.Quality.dunnIndex(CLUSTERING_GOOD).toFixed(2)),
+    parseFloat(util.quality.dunnIndex(CLUSTERING_GOOD).toFixed(2)),
     3.2
 );
 
 test(
-    parseFloat(util.Quality.dunnIndex(CLUSTERING_BAD).toFixed(3)),
+    parseFloat(util.quality.dunnIndex(CLUSTERING_BAD).toFixed(3)),
     0.004
 );
 
 
 // Davies-Bouldin → [0,+∞) ↓
 test(
-    parseFloat(util.Quality.daviesBouldinIndex(CLUSTERING_GOOD).toFixed(2)),
+    parseFloat(util.quality.daviesBouldinIndex(CLUSTERING_GOOD).toFixed(2)),
     0.25
 );
 test(
-    parseFloat(util.Quality.daviesBouldinIndex(CLUSTERING_BAD).toFixed(3)),
+    parseFloat(util.quality.daviesBouldinIndex(CLUSTERING_BAD).toFixed(3)),
     2.999
 );

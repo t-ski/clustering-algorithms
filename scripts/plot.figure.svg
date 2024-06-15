@@ -2,8 +2,8 @@
 <svg viewBox="-4 -2 56 52" xmlns="http://www.w3.org/2000/svg">
   <rect style="fill: rgb(246, 248, 250);" x="-4" y="-2" width="60" height="56"/>
   <g>
-    <line style="stroke-width: 0.1; stroke-linecap: square; fill: none; vector-effect: non-scaling-stroke; stroke: rgb(217, 217, 220);" x1="0" y1="0" x2="0" y2="50"/>
-    <line style="stroke-width: 0.1; stroke-linecap: square; fill: none; vector-effect: non-scaling-stroke; stroke: rgb(217, 217, 220);" x1="0" y1="0" x2="50" y2="0"/>
+    <line style="stroke-width: 0.2; stroke-linecap: square; fill: none; vector-effect: non-scaling-stroke; stroke: rgb(217, 217, 220);" x1="0" y1="0" x2="0" y2="52"/>
+    <line style="stroke-width: 0.2; stroke-linecap: square; fill: none; vector-effect: non-scaling-stroke; stroke: rgb(217, 217, 220);" x1="0" y1="0" x2="56" y2="0"/>
   </g>
   <!-- @ -->
 </svg>

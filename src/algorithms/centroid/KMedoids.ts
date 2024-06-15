@@ -1,5 +1,5 @@
+import * as vectorArithmetic from "../../arithmetic/vector";
 import { TVector, TCluster } from "../../types";
-import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
 import { AClustering } from "../AClustering";
 import { KMeans } from "./KMeans";
 
@@ -11,7 +11,7 @@ export class KMedoids extends KMeans {
 	
 	protected selectInitialCentroids(data: TVector[]): TVector[] {
 		data.sort((a: TVector, b: TVector) => {
-			return VectorArithmetic.weight(a) - VectorArithmetic.weight(b);
+			return vectorArithmetic.weight(a) - vectorArithmetic.weight(b);
 		});
 		
 		const intitialCentroids: TVector[] = [];
@@ -43,7 +43,7 @@ export class KMedoids extends KMeans {
 				medoid.vector = curCluster[i];
 				medoid.distance = totalDistance;
 			}
-			newCentroids.push(VectorArithmetic.mean(curCluster));
+			newCentroids.push(vectorArithmetic.mean(curCluster));
 		}
 		return newCentroids;
 	}

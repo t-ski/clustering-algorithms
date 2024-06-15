@@ -1,5 +1,6 @@
 import * as matrixArithmetic from "../../arithmetic/matrix";
 import { TMatrix } from "../../types";
+import { AGraphBasedClustering } from "./AGraphBasedClustering";
 import { ConnectedComponents } from "./ConnectedComponents";
 
 
@@ -28,13 +29,8 @@ export class Markov extends ConnectedComponents {
 	}
 
 	protected cluster(adjacencyMatrix: TMatrix): number[][] {
-		let markovMatrix: TMatrix = matrixArithmetic.copy(adjacencyMatrix);
+		let markovMatrix: TMatrix = AGraphBasedClustering.adjacencyMatrixToSimilarityMatrix(adjacencyMatrix);
 		for(let i = 0; i < markovMatrix.length; i++) {
-			for(let j = 0; j < markovMatrix.length; j++) {
-				markovMatrix[i][j] = markovMatrix[i][j]
-					? Math.max(...markovMatrix.flat(2)) - markovMatrix[i][j]
-					: 0;
-			}
 			markovMatrix[i][i] = markovMatrix[i][i] || 1;
 		}
 		markovMatrix = matrixArithmetic.normalize(markovMatrix);

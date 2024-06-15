@@ -1,5 +1,5 @@
-const matrixArithmetic = require("../build/arithmetic/matrix-arithmetic");
-const vectorArithmetic = require("../build/arithmetic/vector-arithmetic");
+const matrixArithmetic = require("../build/arithmetic/matrix");
+const vectorArithmetic = require("../build/arithmetic/vector");
 
 
 test(

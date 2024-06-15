@@ -2,17 +2,11 @@
 
 Pure TypeScript implementations of common clustering algorithms.
 
-``` cli
-npm install t-ski/clustering-algorithms
-```
-
 [1. Interface](#interface)
-<sub>&emsp;|&emsp;</sub>
+&emsp;|&emsp;
 [2. Algorithms](#algorithms)
-<sub>&emsp;|&emsp;</sub>
+&emsp;|&emsp;
 [3. Utilities](#utilities)
-
-![Example Plots](./examples.png)
 
 ## Interface
 
@@ -31,6 +25,8 @@ interface AClustering<O = TCluster> {
 ```
 
 ## Algorithms
+
+![Vector-based Plots](./examples.vector.png)
 
 ``` ts
 clA.<algorithm>(data: I[], ...args): AClustering<I>
@@ -78,7 +74,7 @@ clA.KMedoids(data, k?)
 clA.<algorithm>(data: number[]|TVector[], epsilon?: number): AClustering
 ```
 
-> Epsilon is estimated from the given data if not defined.
+> If not defined, the epsilon parameter is estimated from the given data.
 
 ``` ts
 new clA.MeanShift(DATA, 2).clusters;
@@ -89,7 +85,7 @@ new clA.MeanShift(DATA, 2).clusters;
 `O = Θ(n²)`
 
 ``` ts
-clA.OPTICS(data, epsilon?, minPoints: number = 5): AClustering & { noise: TCluster }
+clA.MeanShift(data, epsilon?): AClustering & { noise: TCluster }
 ```
 
 #### DBSCAN
@@ -97,7 +93,7 @@ clA.OPTICS(data, epsilon?, minPoints: number = 5): AClustering & { noise: TClust
 `O(n²) | Θ(n log n)`
 
 ``` ts
-clA.DBSCAN(data, epsilon?, minPoints: number = 5): AClustering & { noise: TCluster }
+clA.DBSCAN(data, epsilon?, minPoints: number = 4): AClustering & { noise: TCluster }
 ```
 
 #### OPTICS
@@ -105,12 +101,14 @@ clA.DBSCAN(data, epsilon?, minPoints: number = 5): AClustering & { noise: TClust
 `O(n²) | Θ(n log n)`
 
 ``` ts
-clA.OPTICS(data, epsilon?, minPoints: number = 5): AClustering & { noise: TCluster }
+clA.OPTICS(data, epsilon?, minPoints: number = 4): AClustering & { noise: TCluster }
 ```
 
 ---
 
 ### Graph-based
+
+![Graph-based Plots](./examples.graph.png)
 
 ``` ts
 clA.<algorithm>(adjacencyMatrix: TMatrix, k: number = 2): AClustering<number[]>
@@ -270,7 +268,7 @@ const clusteringQuality = clA.util.quality.silhouetteCoefficient(clusters);
 
 #### Silhouette Coefficient
 
-`f: ℕ×(ℝ×…×ℝ) ↦ [-1,+1]`
+`f: ℕ×(ℝ×…×ℝ) ↦ [-1,1] → 1`
 
 ``` ts
 clA.util.quality.silhouetteCoefficient(clusters: TCluster[]): number
@@ -278,16 +276,15 @@ clA.util.quality.silhouetteCoefficient(clusters: TCluster[]): number
 
 #### Dunn Index
 
-`f: ℕ×(ℝ×…×ℝ) ↦ [0,+∞) → +∞`
+`f: ℕ×(ℝ×…×ℝ) ↦ [0,∞) → ∞`
 
 ``` ts
-clA.util.quality.dunnIndey(clusters: TCluster[]): number
+clA.util.quality.dunnIndex(clusters: TCluster[]): number
 ```
-// Dunn → [0,+∞) ↑
 
 #### Davies-Bouldin Index
 
-`f: ℕ×(ℝ×…×ℝ) ↦ [0,+∞) → 0`
+`f: ℕ×(ℝ×…×ℝ) ↦ [0,∞) → 0`
 
 ``` ts
 clA.util.quality.daviesBouldinIndex(clusters: TCluster[]): number
@@ -297,7 +294,7 @@ clA.util.quality.daviesBouldinIndex(clusters: TCluster[]): number
 
 ### Vector Data Map
 
-The `VectorDataMap` utility class helps with associating arbitrary entites with data points ([View Example](./example/example.js)).
+The `VectorDataMap` utility class helps with associating arbitrary entites with data points ([view example](./example/example.js)).
 
 ``` ts
 type TDataPoint<T> = [ TVector, T ]

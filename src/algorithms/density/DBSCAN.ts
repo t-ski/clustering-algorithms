@@ -8,7 +8,7 @@ export class DBSCAN extends ADensityBasedClustering {
 	
 	protected readonly minPoints: number;
 
-	constructor(data: TVector[], epsilon?: number, minPoints: number = 5) {
+	constructor(data: TVector[], epsilon?: number, minPoints: number = 4) {
 		super(data, epsilon);
 
 		this.minPoints = minPoints;

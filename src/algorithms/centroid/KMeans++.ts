@@ -1,5 +1,5 @@
 import { TVector, TCluster } from "../../types";
-import { VectorArithmetic } from "../../arithmetic/VectorArithmetic";
+import * as vectorArithmetic from "../../arithmetic/vector";
 import { AClustering } from "../AClustering";
 import { KMeans } from "./KMeans";
 
@@ -42,7 +42,7 @@ export class KMeansPP extends KMeans {
 		
 		const newCentroids: TVector[] = [];
 		for(let i = 0; i < curClusters.length; i++) {
-			newCentroids.push(VectorArithmetic.mean(curClusters[i]));
+			newCentroids.push(vectorArithmetic.mean(curClusters[i]));
 		}
 		return newCentroids;
 	}
